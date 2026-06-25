@@ -1,38 +1,39 @@
 const values = [
   {
-    label: "Local payment paths",
-    copy: "Choose supported routes that fit the way people already move money.",
+    label: "Local rails",
+    copy: "Route value through payment paths that match how customers already transact.",
   },
   {
-    label: "Digital value access",
-    copy: "Move between digital value and practical payout options with fewer steps.",
+    label: "Digital value",
+    copy: "Bridge stored value, mobile money, and supported payout destinations in one flow.",
   },
   {
-    label: "Mobile-first flow",
-    copy: "A focused experience built for quick review on everyday devices.",
+    label: "Review layer",
+    copy: "Keep amounts, recipients, timing, and verification steps legible before completion.",
   },
   {
-    label: "Human support",
-    copy: "Give users a clear place to ask questions before and after a transfer.",
+    label: "Support desk",
+    copy: "Give users a clear escalation path around sensitive money movement moments.",
   },
 ];
 
 export default function ValueCards() {
   return (
     <section
-      className="px-4 py-8 sm:px-6 sm:py-16 lg:py-20"
+      id="rails"
+      className="px-4 py-14 sm:px-6 sm:py-20 lg:py-24"
       aria-labelledby="value-title"
     >
-      <div className="mx-auto max-w-6xl">
-        <div className="max-w-2xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.16em] text-emerald-600">
-            What it supports
+      <div className="mx-auto max-w-[358px] sm:max-w-6xl">
+        <div className="reveal-on-scroll max-w-2xl">
+          <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[#7a5a19]">
+            Rails and coverage
           </p>
           <h2
             id="value-title"
-            className="mt-3 text-3xl font-semibold tracking-normal text-slate-950 sm:text-4xl"
+            className="mt-3 text-3xl font-semibold tracking-normal text-[#07111f] sm:text-4xl"
           >
-            Useful money movement without the noise.
+            Payment infrastructure without the template gloss.
           </h2>
         </div>
 
@@ -40,15 +41,19 @@ export default function ValueCards() {
           {values.map((item, index) => (
             <article
               key={item.label}
-              className="group rounded-lg border border-emerald-500/15 bg-white p-5 shadow-[0_18px_55px_rgba(15,23,42,0.06)] transition hover:-translate-y-1 hover:border-emerald-500/30"
+              style={{ animationDelay: `${index * 110}ms` }}
+              className="reveal-on-scroll card-lift group relative overflow-hidden rounded-[8px] border border-[#d8d0c2] bg-white/80 p-5 shadow-[0_18px_55px_rgba(7,17,31,0.06)]"
             >
-              <div className="flex h-10 w-10 items-center justify-center rounded-md bg-emerald-50 text-sm font-bold text-emerald-600 transition group-hover:bg-emerald-500 group-hover:text-white">
+              <span className="motion-sheen" />
+              <div className="relative flex h-11 w-11 items-center justify-center rounded-[8px] border border-[#d8d0c2] bg-[#f6f2ea] font-mono text-sm font-bold text-[#7a5a19] transition group-hover:border-[#27d6c3]/40 group-hover:bg-[#07111f] group-hover:text-white">
                 {String(index + 1).padStart(2, "0")}
               </div>
-              <h3 className="mt-8 text-lg font-semibold text-slate-950">
+              <h3 className="relative mt-8 text-lg font-semibold text-[#07111f]">
                 {item.label}
               </h3>
-              <p className="mt-3 text-sm leading-6 text-slate-600">{item.copy}</p>
+              <p className="relative mt-3 text-sm leading-6 text-[#52606d]">
+                {item.copy}
+              </p>
             </article>
           ))}
         </div>

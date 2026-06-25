@@ -6,7 +6,7 @@ import ValueCards from "@/components/ValueCards";
 
 export default function Home() {
   return (
-    <main className="min-h-screen overflow-hidden bg-[#fbfffd] text-slate-950">
+    <main className="min-h-screen overflow-hidden bg-[#f6f2ea] text-[#07111f]">
       <Navbar />
       <Hero />
       <ValueCards />
