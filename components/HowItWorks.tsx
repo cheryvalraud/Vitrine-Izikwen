@@ -1,15 +1,15 @@
-const steps = [
+﻿const steps = [
   {
-    title: "Select the route",
-    copy: "Start with the available rail, payment option, and payout method for the user's market.",
+    title: "Choose the transfer path",
+    copy: "Start with the available payment method and payout option for the customer's market.",
   },
   {
-    title: "Authorize the details",
-    copy: "Confirm amount, timing, recipient information, and verification requirements before the transfer advances.",
+    title: "Review the details",
+    copy: "Confirm the amount, recipient, timing, and verification requirements before the transfer moves forward.",
   },
   {
-    title: "Settle with status",
-    copy: "Show a clean completion state, route status, and support path when a question needs a human response.",
+    title: "Track the status",
+    copy: "Show a clear completion state and a support path when a question needs a human response.",
   },
 ];
 
@@ -17,7 +17,7 @@ const safeguards = [
   "Verification steps for supported workflows",
   "Transaction review before completion",
   "Privacy-conscious product decisions",
-  "Support paths for user questions",
+  "Direct support through contact@comercializikwen.com",
 ];
 
 export default function HowItWorks() {
@@ -30,19 +30,18 @@ export default function HowItWorks() {
       >
         <div className="mx-auto grid max-w-[358px] gap-10 sm:max-w-6xl lg:grid-cols-[0.76fr_1.24fr]">
           <div className="reveal-on-scroll">
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[#7a5a19]">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7a5a19]">
               Transfer flow
             </p>
             <h2
               id="how-title"
-              className="mt-3 text-3xl font-semibold tracking-normal text-[#07111f] sm:text-4xl"
+              className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-[#07111f] sm:text-4xl"
             >
-              A controlled sequence for important transfers.
+              Simple steps for important transfers.
             </h2>
             <p className="mt-5 text-base leading-7 text-[#52606d]">
-              Izikwen keeps money movement composed: route clearly, review the
-              sensitive details, and show users exactly where their transfer
-              stands.
+              Izikwen keeps the experience clear: choose the path, review the
+              sensitive details, and know where the transfer stands.
             </p>
           </div>
 
@@ -51,10 +50,10 @@ export default function HowItWorks() {
               <article
                 key={step.title}
                 style={{ animationDelay: `${index * 130}ms` }}
-                className="reveal-on-scroll card-lift group relative grid overflow-hidden rounded-[8px] border border-[#d8d0c2] bg-white p-5 shadow-[0_14px_48px_rgba(7,17,31,0.05)] sm:grid-cols-[64px_1fr] sm:p-6"
+                className="reveal-on-scroll card-lift group relative grid overflow-hidden rounded-3xl border border-[#d8d0c2] bg-white p-5 shadow-[0_14px_48px_rgba(7,17,31,0.05)] sm:grid-cols-[64px_1fr] sm:p-6"
               >
                 <span className="motion-sheen" />
-                <div className="relative flex h-12 w-12 items-center justify-center rounded-[8px] bg-[#07111f] font-mono text-base font-semibold text-[#f4d187] transition group-hover:bg-[#27d6c3] group-hover:text-[#07111f]">
+                <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-[#07111f] text-base font-semibold text-[#f4d187] transition group-hover:bg-[#27d6c3] group-hover:text-[#07111f]">
                   {index + 1}
                 </div>
                 <div className="relative">
@@ -76,21 +75,21 @@ export default function HowItWorks() {
         className="bg-[#07111f] px-4 py-16 text-white sm:px-6 lg:py-24"
         aria-labelledby="security-title"
       >
-        <div className="reveal-on-scroll mx-auto grid max-w-[358px] gap-8 sm:max-w-6xl lg:grid-cols-[1.05fr_0.95fr]">
-          <div>
-            <p className="font-mono text-xs font-semibold uppercase tracking-[0.18em] text-[#f4d187]">
-              Trust controls
+        <div className="mx-auto grid max-w-[358px] gap-8 sm:max-w-6xl lg:grid-cols-[1.05fr_0.95fr]">
+          <div className="reveal-on-scroll">
+            <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f4d187]">
+              Trust and support
             </p>
             <h2
               id="security-title"
-              className="mt-3 text-3xl font-semibold tracking-normal text-white sm:text-4xl"
+              className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl"
             >
-              Built around review, verification, and support.
+              Built around review, verification, and help.
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-[#c7d2df]">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[#d9e3ee]">
               The product direction is designed with verification, transaction
-              review, and responsible workflows in mind. Availability of
-              features may vary by region and supported partners.
+              review, and responsible support workflows in mind. Availability
+              may vary by region and supported partners.
             </p>
           </div>
 
@@ -99,9 +98,9 @@ export default function HowItWorks() {
               <div
                 key={item}
                 style={{ animationDelay: `${index * 90}ms` }}
-                className="reveal-on-scroll card-lift flex items-center gap-3 rounded-[8px] border border-white/10 bg-white/[0.06] px-4 py-3 text-sm font-medium text-[#d9e3ee]"
+                className="reveal-on-scroll card-lift flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-3 text-sm font-medium text-[#eef3f8]"
               >
-                <span className="h-2.5 w-2.5 rounded-full bg-[#27d6c3]" />
+                <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#27d6c3]" />
                 {item}
               </div>
             ))}

@@ -1,4 +1,4 @@
-import type { Metadata, Viewport } from "next";
+﻿import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 
@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Izikwen | Premium payment rails",
+  title: "Izikwen EasyCoin | Digital money movement",
   description:
-    "Izikwen is a premium payment platform for moving between digital value, local payment paths, and supported payout methods.",
+    "EasyCoin by Izikwen helps customers move between digital value, local payment methods, and supported payout options.",
 };
 
 export const viewport: Viewport = {
