@@ -16,7 +16,6 @@ export default function ThreeScene() {
 
     const geometries: THREE.BufferGeometry[] = [];
     const materials: THREE.Material[] = [];
-    const textures: THREE.Texture[] = [];
 
     const trackGeometry = <T extends THREE.BufferGeometry>(geometry: T) => {
       geometries.push(geometry);
@@ -35,7 +34,7 @@ export default function ThreeScene() {
       0.1,
       100
     );
-    camera.position.set(0, 0.25, 6.7);
+    camera.position.set(0, 0.18, 7.2);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
@@ -50,122 +49,104 @@ export default function ThreeScene() {
     renderer.domElement.style.width = "100%";
     container.appendChild(renderer.domElement);
 
-    const ambientLight = new THREE.AmbientLight("#ffffff", 1.4);
+    const ambientLight = new THREE.AmbientLight("#ffffff", 1.15);
     scene.add(ambientLight);
 
-    const keyLight = new THREE.DirectionalLight("#ffffff", 2.8);
-    keyLight.position.set(3.4, 4.2, 5);
+    const keyLight = new THREE.DirectionalLight("#ffffff", 3.2);
+    keyLight.position.set(4.2, 4.6, 5.5);
     scene.add(keyLight);
 
-    const cyanLight = new THREE.PointLight("#27d6c3", 3.2, 10);
-    cyanLight.position.set(-2.3, 1.3, 2.8);
-    scene.add(cyanLight);
+    const fillLight = new THREE.PointLight("#27d6c3", 3.1, 10);
+    fillLight.position.set(-3.2, 1.2, 3.1);
+    scene.add(fillLight);
 
-    const goldLight = new THREE.PointLight("#f4d187", 2.1, 12);
-    goldLight.position.set(2.4, -1.2, 3.1);
+    const goldLight = new THREE.PointLight("#f4d187", 2.4, 12);
+    goldLight.position.set(2.9, -1.6, 3.4);
     scene.add(goldLight);
 
     const root = new THREE.Group();
     scene.add(root);
 
-    const tokenGroup = new THREE.Group();
-    root.add(tokenGroup);
+    const ikGroup = new THREE.Group();
+    root.add(ikGroup);
 
-    const tokenMaterial = trackMaterial(
+    const frontMaterial = trackMaterial(
       new THREE.MeshPhysicalMaterial({
-        color: "#eef3f8",
-        metalness: 0.5,
-        roughness: 0.2,
-        clearcoat: 0.9,
-        clearcoatRoughness: 0.18,
+        color: "#f4d187",
+        emissive: "#3a2a08",
+        emissiveIntensity: 0.08,
+        metalness: 0.46,
+        roughness: 0.22,
+        clearcoat: 0.82,
+        clearcoatRoughness: 0.15,
       })
     );
 
-    const token = new THREE.Mesh(
-      trackGeometry(new THREE.CylinderGeometry(1.18, 1.18, 0.16, 96)),
-      tokenMaterial
+    const sideMaterial = trackMaterial(
+      new THREE.MeshPhysicalMaterial({
+        color: "#27d6c3",
+        emissive: "#06312f",
+        emissiveIntensity: 0.12,
+        metalness: 0.38,
+        roughness: 0.24,
+        clearcoat: 0.68,
+      })
     );
-    token.rotation.x = Math.PI / 2;
-    tokenGroup.add(token);
 
-    const tokenRim = new THREE.Mesh(
-      trackGeometry(new THREE.TorusGeometry(1.2, 0.035, 18, 128)),
-      trackMaterial(
-        new THREE.MeshPhysicalMaterial({
-          color: "#f4d187",
-          emissive: "#2c2109",
-          emissiveIntensity: 0.12,
-          metalness: 0.32,
-          roughness: 0.24,
-          clearcoat: 0.72,
-        })
-      )
+    const darkMaterial = trackMaterial(
+      new THREE.MeshPhysicalMaterial({
+        color: "#edf4fb",
+        metalness: 0.26,
+        roughness: 0.22,
+        clearcoat: 0.72,
+      })
     );
-    tokenRim.position.z = 0.11;
-    tokenGroup.add(tokenRim);
 
-    const logoTexture = new THREE.TextureLoader().load(
-      "/images/izikwen-logo-mark.png"
-    );
-    logoTexture.colorSpace = THREE.SRGBColorSpace;
-    logoTexture.anisotropy = renderer.capabilities.getMaxAnisotropy();
-    textures.push(logoTexture);
+    const makeBar = (
+      name: string,
+      width: number,
+      height: number,
+      depth: number,
+      x: number,
+      y: number,
+      rotationZ = 0,
+      material: THREE.Material = frontMaterial
+    ) => {
+      const mesh = new THREE.Mesh(
+        trackGeometry(new THREE.BoxGeometry(width, height, depth)),
+        material
+      );
+      mesh.name = name;
+      mesh.position.set(x, y, 0);
+      mesh.rotation.z = rotationZ;
+      ikGroup.add(mesh);
+      return mesh;
+    };
 
-    const logoPlate = new THREE.Mesh(
-      trackGeometry(new THREE.PlaneGeometry(0.94, 0.52)),
+    // A real 3D "I"
+    makeBar("I-top", 0.72, 0.18, 0.42, -0.95, 0.82, 0, darkMaterial);
+    makeBar("I-stem", 0.22, 1.52, 0.48, -0.95, 0, 0, frontMaterial);
+    makeBar("I-bottom", 0.72, 0.18, 0.42, -0.95, -0.82, 0, darkMaterial);
+
+    // A real 3D "K" built from blocks, not a flat logo inside a coin.
+    makeBar("K-stem", 0.24, 1.72, 0.5, 0.1, 0, 0, frontMaterial);
+    makeBar("K-upper", 0.28, 1.0, 0.48, 0.56, 0.38, -0.72, sideMaterial);
+    makeBar("K-lower", 0.28, 1.04, 0.48, 0.58, -0.4, 0.72, sideMaterial);
+
+    const shadowPlane = new THREE.Mesh(
+      trackGeometry(new THREE.PlaneGeometry(3.4, 1.4)),
       trackMaterial(
         new THREE.MeshBasicMaterial({
-          map: logoTexture,
+          color: "#27d6c3",
           transparent: true,
-          opacity: 0.98,
+          opacity: 0.055,
           depthWrite: false,
         })
       )
     );
-    logoPlate.position.z = 0.18;
-    tokenGroup.add(logoPlate);
-
-    const pulseMaterial = trackMaterial(
-      new THREE.MeshBasicMaterial({
-        color: "#27d6c3",
-        transparent: true,
-        opacity: 0.1,
-        depthWrite: false,
-      })
-    );
-
-    const pulseRing = new THREE.Mesh(
-      trackGeometry(new THREE.TorusGeometry(1.38, 0.012, 12, 168)),
-      pulseMaterial
-    );
-    pulseRing.rotation.set(Math.PI / 2, 0, 0);
-    tokenGroup.add(pulseRing);
-
-    const createRing = (
-      radius: number,
-      color: string,
-      opacity: number,
-      rotation: [number, number, number]
-    ) => {
-      const ring = new THREE.Mesh(
-        trackGeometry(new THREE.TorusGeometry(radius, 0.01, 12, 176)),
-        trackMaterial(
-          new THREE.MeshBasicMaterial({
-            color,
-            transparent: true,
-            opacity,
-            depthWrite: false,
-          })
-        )
-      );
-      ring.rotation.set(...rotation);
-      root.add(ring);
-      return ring;
-    };
-
-    const ringA = createRing(1.78, "#27d6c3", 0.28, [1.14, 0.28, 0.1]);
-    const ringB = createRing(2.24, "#d9e3ee", 0.17, [1.42, -0.48, -0.3]);
-    const ringC = createRing(2.72, "#f4d187", 0.14, [1.25, 0.72, 0.42]);
+    shadowPlane.position.set(0, -1.2, -0.45);
+    shadowPlane.rotation.x = -0.72;
+    root.add(shadowPlane);
 
     const createRail = (
       points: THREE.Vector3[],
@@ -174,7 +155,7 @@ export default function ThreeScene() {
     ) => {
       const curve = new THREE.CatmullRomCurve3(points);
       const geometry = trackGeometry(
-        new THREE.BufferGeometry().setFromPoints(curve.getPoints(124))
+        new THREE.BufferGeometry().setFromPoints(curve.getPoints(128))
       );
       const material = trackMaterial(
         new THREE.LineBasicMaterial({
@@ -191,63 +172,33 @@ export default function ThreeScene() {
 
     const railOne = createRail(
       [
-        new THREE.Vector3(-2.75, -1.0, -0.2),
-        new THREE.Vector3(-1.15, 0.2, 0.7),
-        new THREE.Vector3(0.6, 0.45, 0.35),
-        new THREE.Vector3(2.55, 1.12, -0.3),
+        new THREE.Vector3(-2.8, -1.0, -0.25),
+        new THREE.Vector3(-1.4, 0.05, 0.45),
+        new THREE.Vector3(0.6, 0.42, 0.35),
+        new THREE.Vector3(2.6, 1.08, -0.35),
       ],
       "#27d6c3",
-      0.42
+      0.38
     );
 
     const railTwo = createRail(
       [
-        new THREE.Vector3(-2.42, 1.05, -0.55),
-        new THREE.Vector3(-0.95, 0.55, 0.4),
-        new THREE.Vector3(0.85, -0.1, 0.65),
-        new THREE.Vector3(2.36, -1.0, -0.25),
+        new THREE.Vector3(-2.4, 1.0, -0.5),
+        new THREE.Vector3(-0.92, 0.42, 0.42),
+        new THREE.Vector3(0.78, -0.06, 0.62),
+        new THREE.Vector3(2.36, -0.94, -0.2),
       ],
-      "#d9e3ee",
-      0.25
+      "#f4d187",
+      0.24
     );
 
-    const orbiters = new THREE.Group();
-    root.add(orbiters);
-
-    const nodeGeometry = trackGeometry(new THREE.SphereGeometry(0.048, 18, 10));
-    const nodeMaterial = trackMaterial(
-      new THREE.MeshBasicMaterial({
-        color: "#27d6c3",
-        transparent: true,
-        opacity: 0.76,
-        depthWrite: false,
-      })
-    );
-
-    const nodes: THREE.Mesh[] = [];
-    const nodeBaseY: number[] = [];
-    for (let i = 0; i < 8; i += 1) {
-      const node = new THREE.Mesh(nodeGeometry, nodeMaterial);
-      const angle = (i / 8) * Math.PI * 2;
-      const radius = i % 2 === 0 ? 1.84 : 2.34;
-      node.position.set(
-        Math.cos(angle) * radius,
-        Math.sin(angle * 1.3) * 0.76,
-        Math.sin(angle) * 0.56
-      );
-      node.userData.phase = angle;
-      nodeBaseY.push(node.position.y);
-      nodes.push(node);
-      orbiters.add(node);
-    }
-
-    const particleCount = 108;
+    const particleCount = 96;
     const particlePositions = new Float32Array(particleCount * 3);
     for (let i = 0; i < particleCount; i += 1) {
-      const radius = 1.55 + Math.random() * 2.6;
+      const radius = 1.55 + Math.random() * 2.65;
       const angle = Math.random() * Math.PI * 2;
       particlePositions[i * 3] = Math.cos(angle) * radius;
-      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 3.7;
+      particlePositions[i * 3 + 1] = (Math.random() - 0.5) * 3.55;
       particlePositions[i * 3 + 2] = Math.sin(angle) * radius * 0.38;
     }
 
@@ -263,7 +214,7 @@ export default function ThreeScene() {
           color: "#d9e3ee",
           size: 0.028,
           transparent: true,
-          opacity: 0.48,
+          opacity: 0.44,
           depthWrite: false,
         })
       )
@@ -284,10 +235,10 @@ export default function ThreeScene() {
       const compact = width < 560 || height < 320;
 
       camera.aspect = width / height;
-      camera.position.z = compact ? 8.1 : 6.7;
-      camera.position.y = compact ? 0.16 : 0.25;
+      camera.position.z = compact ? 8.6 : 7.2;
+      camera.position.y = compact ? 0.1 : 0.18;
       camera.updateProjectionMatrix();
-      root.scale.setScalar(compact ? 0.7 : 1.02);
+      root.scale.setScalar(compact ? 0.78 : 1.08);
 
       renderer.setSize(width, height);
       renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.8));
@@ -304,39 +255,22 @@ export default function ThreeScene() {
     const animate = () => {
       const elapsed = (window.performance.now() - startTime) / 1000;
 
-      root.rotation.y = Math.sin(elapsed * 0.2) * 0.12 + mouse.x * 0.13;
-      root.rotation.x = Math.sin(elapsed * 0.18) * 0.04 - mouse.y * 0.045;
-      root.position.y = Math.sin(elapsed * 0.62) * 0.06;
+      root.rotation.y = Math.sin(elapsed * 0.2) * 0.1 + mouse.x * 0.12;
+      root.rotation.x = Math.sin(elapsed * 0.18) * 0.035 - mouse.y * 0.04;
+      root.position.y = Math.sin(elapsed * 0.58) * 0.06;
 
-      tokenGroup.rotation.z = elapsed * 0.08;
-      tokenGroup.rotation.y = Math.sin(elapsed * 0.42) * 0.07;
+      ikGroup.rotation.y = elapsed * 0.34;
+      ikGroup.rotation.x = Math.sin(elapsed * 0.36) * 0.08;
 
-      const pulseScale = 1 + Math.sin(elapsed * 1.15) * 0.07;
-      pulseRing.scale.set(pulseScale, pulseScale, pulseScale);
-      pulseMaterial.opacity = 0.08 + Math.sin(elapsed * 1.15) * 0.035;
-
-      ringA.rotation.z = elapsed * 0.08;
-      ringB.rotation.z = -elapsed * 0.06;
-      ringC.rotation.z = elapsed * 0.04;
-
-      railOne.rotation.z = Math.sin(elapsed * 0.32) * 0.03;
-      railTwo.rotation.z = -Math.sin(elapsed * 0.28) * 0.025;
-
-      orbiters.rotation.z = elapsed * 0.08;
-      orbiters.rotation.y = Math.sin(elapsed * 0.32) * 0.08;
-      nodes.forEach((node, index) => {
-        const phase = node.userData.phase as number;
-        const scale = 1 + Math.sin(elapsed * 1.05 + phase) * 0.25;
-        node.scale.setScalar(scale);
-        node.position.y = nodeBaseY[index] + Math.sin(elapsed * 0.95 + index) * 0.04;
-      });
+      railOne.rotation.z = Math.sin(elapsed * 0.3) * 0.03;
+      railTwo.rotation.z = -Math.sin(elapsed * 0.26) * 0.026;
 
       particles.rotation.y = elapsed * 0.035;
       particles.rotation.z = Math.sin(elapsed * 0.14) * 0.025;
 
-      cyanLight.position.x = Math.sin(elapsed * 0.66) * 2.3;
-      cyanLight.position.y = 1.2 + Math.cos(elapsed * 0.52) * 0.45;
-      goldLight.position.x = 2.15 + Math.sin(elapsed * 0.35) * 0.28;
+      fillLight.position.x = Math.sin(elapsed * 0.64) * 2.5;
+      fillLight.position.y = 1.1 + Math.cos(elapsed * 0.5) * 0.45;
+      goldLight.position.x = 2.35 + Math.sin(elapsed * 0.32) * 0.28;
 
       camera.lookAt(0, 0, 0);
       renderer.render(scene, camera);
@@ -358,7 +292,6 @@ export default function ThreeScene() {
       window.removeEventListener("resize", handleResize);
       container.removeEventListener("pointermove", handlePointerMove);
 
-      textures.forEach((texture) => texture.dispose());
       geometries.forEach((geometry) => geometry.dispose());
       materials.forEach((material) => material.dispose());
       renderer.dispose();

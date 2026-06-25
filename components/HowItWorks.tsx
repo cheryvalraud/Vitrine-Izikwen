@@ -17,7 +17,7 @@ const safeguards = [
   "Verification steps for supported workflows",
   "Transaction review before completion",
   "Privacy-conscious product decisions",
-  "Direct support through contact@comercializikwen.com",
+  "Direct support through contact@izikwen.com",
 ];
 
 export default function HowItWorks() {
@@ -29,7 +29,7 @@ export default function HowItWorks() {
         aria-labelledby="how-title"
       >
         <div className="mx-auto grid max-w-[358px] gap-10 sm:max-w-6xl lg:grid-cols-[0.76fr_1.24fr]">
-          <div className="reveal-on-scroll">
+          <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7a5a19]">
               Transfer flow
             </p>
@@ -49,8 +49,7 @@ export default function HowItWorks() {
             {steps.map((step, index) => (
               <article
                 key={step.title}
-                style={{ animationDelay: `${index * 130}ms` }}
-                className="reveal-on-scroll card-lift group relative grid overflow-hidden rounded-3xl border border-[#d8d0c2] bg-white p-5 shadow-[0_14px_48px_rgba(7,17,31,0.05)] sm:grid-cols-[64px_1fr] sm:p-6"
+                className="card-lift group relative grid overflow-hidden rounded-3xl border border-[#d8d0c2] bg-white p-5 shadow-[0_14px_48px_rgba(7,17,31,0.05)] sm:grid-cols-[64px_1fr] sm:p-6"
               >
                 <span className="motion-sheen" />
                 <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-[#07111f] text-base font-semibold text-[#f4d187] transition group-hover:bg-[#27d6c3] group-hover:text-[#07111f]">
@@ -76,7 +75,7 @@ export default function HowItWorks() {
         aria-labelledby="security-title"
       >
         <div className="mx-auto grid max-w-[358px] gap-8 sm:max-w-6xl lg:grid-cols-[1.05fr_0.95fr]">
-          <div className="reveal-on-scroll">
+          <div>
             <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#f4d187]">
               Trust and support
             </p>
@@ -86,7 +85,7 @@ export default function HowItWorks() {
             >
               Built around review, verification, and help.
             </h2>
-            <p className="mt-5 max-w-2xl text-base leading-7 text-[#d9e3ee]">
+            <p className="mt-5 max-w-2xl text-base leading-7 text-[#eef3f8]">
               The product direction is designed with verification, transaction
               review, and responsible support workflows in mind. Availability
               may vary by region and supported partners.
@@ -94,11 +93,10 @@ export default function HowItWorks() {
           </div>
 
           <div className="grid gap-3 self-center">
-            {safeguards.map((item, index) => (
+            {safeguards.map((item) => (
               <div
                 key={item}
-                style={{ animationDelay: `${index * 90}ms` }}
-                className="reveal-on-scroll card-lift flex items-center gap-3 rounded-2xl border border-white/10 bg-white/[0.08] px-4 py-3 text-sm font-medium text-[#eef3f8]"
+                className="card-lift flex items-center gap-3 rounded-2xl border border-white/12 bg-white/[0.1] px-4 py-3 text-sm font-semibold text-white"
               >
                 <span className="h-2.5 w-2.5 shrink-0 rounded-full bg-[#27d6c3]" />
                 {item}

@@ -25,7 +25,7 @@ export default function ValueCards() {
       aria-labelledby="value-title"
     >
       <div className="mx-auto max-w-[358px] sm:max-w-6xl">
-        <div className="reveal-on-scroll max-w-2xl">
+        <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7a5a19]">
             Product focus
           </p>
@@ -41,8 +41,7 @@ export default function ValueCards() {
           {values.map((item, index) => (
             <article
               key={item.label}
-              style={{ animationDelay: `${index * 110}ms` }}
-              className="reveal-on-scroll card-lift group relative overflow-hidden rounded-3xl border border-[#d8d0c2] bg-white p-5 shadow-[0_18px_55px_rgba(7,17,31,0.06)]"
+              className="card-lift group relative overflow-hidden rounded-3xl border border-[#d8d0c2] bg-white p-5 shadow-[0_18px_55px_rgba(7,17,31,0.06)]"
             >
               <span className="motion-sheen" />
               <div className="relative flex h-11 w-11 items-center justify-center rounded-2xl border border-[#d8d0c2] bg-[#f6f2ea] text-sm font-bold text-[#7a5a19] transition group-hover:border-[#27d6c3]/40 group-hover:bg-[#07111f] group-hover:text-white">
