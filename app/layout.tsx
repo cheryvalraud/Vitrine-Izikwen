@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Izikwen EasyCoin | Digital money movement",
+  title: "IZIKWEN | Digital money movement",
   description:
-    "EasyCoin by Izikwen helps customers move between digital value, local payment methods, and supported payout options.",
+    "IZIKWEN helps customers move through card, MonCash, and wallet payments with a secure review-first flow.",
 };
 
 export const viewport: Viewport = {

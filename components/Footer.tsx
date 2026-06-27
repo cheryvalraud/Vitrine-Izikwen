@@ -20,7 +20,6 @@ export default function Footer() {
                 <p className="text-sm font-semibold tracking-[0.14em] text-white">
                   IZIKWEN
                 </p>
-                <p className="text-sm text-[#d7c49a]">EasyCoin</p>
               </div>
             </div>
 
@@ -28,9 +27,9 @@ export default function Footer() {
               Support that reaches Izikwen directly.
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-[#eef3f8]">
-              Questions about EasyCoin can be sent to the Izikwen support
-              inbox. Availability of features may vary by region and supported
-              payment partners.
+              Questions about IZIKWEN payments can be sent to the support inbox.
+              Availability of features may vary by region and supported payment
+              partners.
             </p>
           </div>
 

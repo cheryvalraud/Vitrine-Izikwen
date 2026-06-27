@@ -24,11 +24,8 @@ export default function Navbar() {
             className="h-auto w-11 shrink-0"
           />
           <span className="min-w-0 leading-none">
-            <span className="block text-sm font-semibold tracking-[0.16em] text-white">
+            <span className="block text-xl font-semibold tracking-[0.16em] text-white">
               IZIKWEN
-            </span>
-            <span className="mt-1 block text-[11px] font-medium uppercase tracking-[0.14em] text-[#d7c49a]">
-              EasyCoin
             </span>
           </span>
         </a>

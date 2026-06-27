@@ -1,9 +1,9 @@
-﻿import ThreeScene from "@/components/ThreeScene";
+import ThreeSceneLoader from "@/components/ThreeSceneLoader";
 
 const highlights = [
-  ["Digital value", "Wallet-ready"],
-  ["Local payouts", "Market-aware"],
-  ["Support", "contact@izikwen.com"],
+  ["Card", "Checkout.com"],
+  ["Mobile money", "MonCash"],
+  ["Wallet flow", "Scan and confirm"],
 ];
 
 export default function Hero() {
@@ -18,18 +18,17 @@ export default function Hero() {
 
       <div className="mx-auto grid w-full max-w-[358px] items-center gap-10 sm:max-w-6xl lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
         <div className="hero-copy max-w-2xl">
-          <div className="mb-6 inline-flex items-center rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#d7c49a]">
-            EasyCoin by Izikwen
+          <div className="mb-6 inline-flex items-center rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#b8ffdf]">
+            IZIKWEN payment flow
           </div>
 
-          <h1 className="max-w-3xl text-balance text-4xl font-semibold leading-[1.02] tracking-[-0.03em] text-white sm:text-6xl sm:leading-[0.98] lg:text-7xl">
-            Move digital money with clarity.
+          <h1 className="max-w-3xl text-balance text-4xl font-semibold leading-[1.02] text-white sm:text-6xl sm:leading-[0.98] lg:text-7xl">
+            Move value with clarity.
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-lg leading-8 text-[#d9e3ee] sm:text-xl">
-            EasyCoin helps customers move between digital value, local payment
-            methods, and supported payout options with a clean support path when
-            help is needed.
+            Card, MonCash, and wallet payments in one secure flow. Scan,
+            confirm, and track digital transactions without losing control.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
@@ -64,8 +63,9 @@ export default function Hero() {
           </div>
         </div>
 
-        <div className="hero-visual relative min-h-[340px] overflow-hidden rounded-[28px] border border-white/10 bg-white/[0.03] shadow-[0_34px_100px_rgba(0,0,0,0.22)] sm:min-h-[500px] lg:min-h-[620px]">
-          <ThreeScene />
+        <div className="hero-visual relative min-h-[340px] overflow-hidden rounded-[28px] border border-white/10 bg-[#030806] shadow-[0_34px_100px_rgba(0,0,0,0.32)] sm:min-h-[500px] lg:min-h-[620px]">
+          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(31,232,160,0.2),transparent_34%),linear-gradient(145deg,rgba(255,255,255,0.08),transparent_30%,rgba(3,8,6,0.64))]" />
+          <ThreeSceneLoader />
         </div>
       </div>
     </section>
