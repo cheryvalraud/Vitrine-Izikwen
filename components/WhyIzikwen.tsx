@@ -1,44 +1,44 @@
-﻿const values = [
+const reasons = [
   {
-    label: "Local payment paths",
-    copy: "Design transfers around the ways customers already pay, receive, and cash out.",
+    label: "Private by design",
+    copy: "Your holdings and activity stay between you and Izikwen. Nothing more is shared than necessary.",
   },
   {
-    label: "Digital value",
-    copy: "Support movement between stored value, wallets, and available payout destinations.",
+    label: "Review-first transfers",
+    copy: "Every transfer is checked before it settles, so the amount, asset, and destination are never in doubt.",
   },
   {
-    label: "Clear review",
-    copy: "Keep the amount, recipient, timing, and status easy to understand before completion.",
+    label: "Direct human support",
+    copy: "A real person answers when a transfer needs attention, not a queue.",
   },
   {
-    label: "Support access",
-    copy: "Give users a direct path to help when a transfer needs attention.",
+    label: "Built for serious holders",
+    copy: "Izikwen is built around holding and moving value carefully, not chasing every new token.",
   },
 ];
 
-export default function ValueCards() {
+export default function WhyIzikwen() {
   return (
     <section
-      id="rails"
+      id="why"
       className="px-4 py-14 sm:px-6 sm:py-20 lg:py-24"
-      aria-labelledby="value-title"
+      aria-labelledby="why-title"
     >
       <div className="mx-auto max-w-[358px] sm:max-w-6xl">
         <div>
           <p className="text-xs font-semibold uppercase tracking-[0.18em] text-[#7a5a19]">
-            Product focus
+            Why Izikwen
           </p>
           <h2
-            id="value-title"
+            id="why-title"
             className="mt-3 text-3xl font-semibold tracking-[-0.02em] text-[#07111f] sm:text-4xl"
           >
-            A cleaner way to present money movement.
+            Private banking discipline, built for digital assets.
           </h2>
         </div>
 
         <div className="mt-9 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
-          {values.map((item, index) => (
+          {reasons.map((item, index) => (
             <article
               key={item.label}
               className="card-lift group relative overflow-hidden rounded-3xl border border-[#d8d0c2] bg-white p-5 shadow-[0_18px_55px_rgba(7,17,31,0.06)]"
