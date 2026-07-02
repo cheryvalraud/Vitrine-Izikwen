@@ -1,9 +1,9 @@
 import ThreeSceneLoader from "@/components/ThreeSceneLoader";
 
-const highlights = [
-  ["Card", "Checkout.com"],
-  ["Mobile money", "MonCash"],
-  ["Wallet flow", "Scan and confirm"],
+const assetStrip = [
+  ["Bitcoin", "BTC"],
+  ["Ethereum", "ETH"],
+  ["Tether", "USDT"],
 ];
 
 export default function Hero() {
@@ -19,24 +19,25 @@ export default function Hero() {
       <div className="mx-auto grid w-full max-w-[358px] items-center gap-10 sm:max-w-6xl lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
         <div className="hero-copy max-w-2xl">
           <div className="mb-6 inline-flex items-center rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#b8ffdf]">
-            IZIKWEN payment flow
+            Private digital asset banking
           </div>
 
           <h1 className="max-w-3xl text-balance text-4xl font-semibold leading-[1.02] text-white sm:text-6xl sm:leading-[0.98] lg:text-7xl">
-            Move value with clarity.
+            Wealth, held with discipline.
           </h1>
 
           <p className="mt-6 max-w-xl text-pretty text-lg leading-8 text-[#d9e3ee] sm:text-xl">
-            Card, MonCash, and wallet payments in one secure flow. Scan,
-            confirm, and track digital transactions without losing control.
+            Izikwen safeguards Bitcoin, Ethereum, and USDT with the rigor of
+            private banking. Every transfer is reviewed. Every asset is
+            accounted for.
           </p>
 
           <div className="mt-8 flex flex-col gap-3 sm:flex-row">
             <a
-              href="mailto:contact@izikwen.com?subject=Izikwen%20support"
+              href="mailto:contact@izikwen.com?subject=Izikwen%20access%20request"
               className="inline-flex h-12 items-center justify-center rounded-full bg-[#f4d187] px-6 text-base font-semibold text-[#07111f] shadow-[0_18px_50px_rgba(244,209,135,0.2)] transition hover:-translate-y-0.5 hover:bg-[#ffe1a3]"
             >
-              Contact support
+              Request access
             </a>
             <a
               href="#flow"
@@ -47,7 +48,7 @@ export default function Hero() {
           </div>
 
           <div className="mt-8 grid max-w-xl grid-cols-1 gap-2 sm:grid-cols-3">
-            {highlights.map(([label, value]) => (
+            {assetStrip.map(([label, value]) => (
               <div
                 key={label}
                 className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.04] p-3"

@@ -25,11 +25,9 @@ export default function ThreeScene() {
     const prefersReducedMotion = window.matchMedia(
       "(prefers-reduced-motion: reduce)",
     ).matches;
-    const isMobile =
-      window.matchMedia("(pointer: coarse)").matches || window.innerWidth < 720;
-    const particleCount = isMobile ? 70 : 150;
-    const nodeCount = isMobile ? 7 : 13;
-    const maxDpr = isMobile ? 1.2 : 1.65;
+    const particleCount = 150;
+    const nodeCount = 13;
+    const maxDpr = 1.65;
 
     const scene = new THREE.Scene();
     const camera = new THREE.PerspectiveCamera(
@@ -38,11 +36,11 @@ export default function ThreeScene() {
       0.1,
       100,
     );
-    camera.position.set(0, 0.05, isMobile ? 6.4 : 5.6);
+    camera.position.set(0, 0.05, 5.6);
 
     const renderer = new THREE.WebGLRenderer({
       alpha: true,
-      antialias: !isMobile,
+      antialias: true,
       powerPreference: "high-performance",
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
@@ -232,7 +230,7 @@ export default function ThreeScene() {
     const scanTexture = makeScanTexture();
 
     const coinBody = new THREE.Mesh(
-      new THREE.CylinderGeometry(1.28, 1.28, 0.24, isMobile ? 72 : 112),
+      new THREE.CylinderGeometry(1.28, 1.28, 0.24, 112),
       new THREE.MeshPhysicalMaterial({
         color: "#0f4b37",
         emissive: "#062719",
@@ -256,14 +254,14 @@ export default function ThreeScene() {
     });
 
     const frontFace = new THREE.Mesh(
-      new THREE.CircleGeometry(1.22, isMobile ? 72 : 112),
+      new THREE.CircleGeometry(1.22, 112),
       faceMaterial,
     );
     frontFace.position.z = 0.124;
     coinGroup.add(frontFace);
 
     const backFace = new THREE.Mesh(
-      new THREE.CircleGeometry(1.22, isMobile ? 72 : 112),
+      new THREE.CircleGeometry(1.22, 112),
       faceMaterial.clone(),
     );
     backFace.rotation.y = Math.PI;
@@ -271,7 +269,7 @@ export default function ThreeScene() {
     coinGroup.add(backFace);
 
     const rim = new THREE.Mesh(
-      new THREE.TorusGeometry(1.31, 0.022, 12, isMobile ? 90 : 140),
+      new THREE.TorusGeometry(1.31, 0.022, 12, 140),
       new THREE.MeshBasicMaterial({
         color: "#ffe6a8",
         transparent: true,
@@ -377,7 +375,7 @@ export default function ThreeScene() {
       };
     });
 
-    for (let i = 0; i < (isMobile ? 18 : 34); i += 1) {
+    for (let i = 0; i < 34; i += 1) {
       const size = 0.035 + (i % 3) * 0.018;
       const square = new THREE.Mesh(
         new THREE.PlaneGeometry(size, size),
@@ -423,7 +421,7 @@ export default function ThreeScene() {
       particleGeometry,
       new THREE.PointsMaterial({
         color: "#baffea",
-        size: isMobile ? 0.018 : 0.022,
+        size: 0.022,
         transparent: true,
         opacity: 0.6,
         blending: THREE.AdditiveBlending,
@@ -433,7 +431,7 @@ export default function ThreeScene() {
     particleGroup.add(particles);
 
     const handlePointerMove = (event: PointerEvent) => {
-      if (isMobile || prefersReducedMotion) {
+      if (prefersReducedMotion) {
         return;
       }
 

@@ -13,9 +13,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "IZIKWEN | Digital money movement",
+  title: "IZIKWEN | Private digital asset banking",
   description:
-    "IZIKWEN helps customers move through card, MonCash, and wallet payments with a secure review-first flow.",
+    "Izikwen safeguards Bitcoin, Ethereum, and USDT with private banking discipline and review-first transfers.",
 };
 
 export const viewport: Viewport = {

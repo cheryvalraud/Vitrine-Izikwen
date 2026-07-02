@@ -2,8 +2,9 @@
 
 const navItems = [
   { label: "How it works", href: "#flow" },
+  { label: "Assets", href: "#assets" },
   { label: "Security", href: "#trust" },
-  { label: "Support", href: "#support" },
+  { label: "FAQ", href: "#faq" },
 ];
 
 export default function Navbar() {
@@ -43,10 +44,10 @@ export default function Navbar() {
         </div>
 
         <a
-          href="mailto:contact@izikwen.com?subject=Izikwen%20support"
-          className="inline-flex h-10 shrink-0 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] px-4 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/12"
+          href="mailto:contact@izikwen.com?subject=Izikwen%20access%20request"
+          className="inline-flex h-10 shrink-0 items-center justify-center rounded-full bg-[#f4d187] px-4 text-sm font-semibold text-[#07111f] transition hover:-translate-y-0.5 hover:bg-[#ffe1a3]"
         >
-          Contact
+          Request access
         </a>
       </nav>
     </header>

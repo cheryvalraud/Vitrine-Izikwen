@@ -1,10 +1,8 @@
 ﻿import Image from "next/image";
 
-const storeLinks = ["Google Play - coming soon", "App Store - coming soon"];
-
 export default function Footer() {
   return (
-    <footer id="support" className="bg-[#07111f] px-4 pb-8 pt-6 text-white sm:px-6">
+    <footer className="bg-[#07111f] px-4 pb-8 pt-6 text-white sm:px-6">
       <div className="mx-auto max-w-[358px] rounded-3xl border border-white/12 bg-white/[0.08] p-6 shadow-[0_28px_80px_rgba(0,0,0,0.18)] sm:max-w-6xl sm:p-8 lg:p-10">
         <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
           <div>
@@ -24,28 +22,25 @@ export default function Footer() {
             </div>
 
             <h2 className="mt-8 max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
-              Support that reaches Izikwen directly.
+              Private banking for digital assets.
             </h2>
             <p className="mt-4 max-w-2xl text-sm leading-6 text-[#eef3f8]">
-              Questions about IZIKWEN payments can be sent to the support inbox.
-              Availability of features may vary by region and supported payment
-              partners.
+              Izikwen supports Bitcoin, Ethereum, and USDT with review-first
+              transfers and direct human support. Availability may vary by
+              region.
             </p>
           </div>
 
-          <div className="grid gap-3 sm:min-w-[270px]">
-            {storeLinks.map((label) => (
-              <a
-                key={label}
-                href="mailto:contact@izikwen.com?subject=Izikwen%20app%20updates"
-                className="rounded-full border border-white/16 bg-white/[0.08] px-4 py-3 text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/14"
-              >
-                {label}
-              </a>
-            ))}
+          <div id="support" className="grid gap-3 sm:min-w-[270px]">
+            <a
+              href="mailto:contact@izikwen.com?subject=Izikwen%20access%20request"
+              className="rounded-full bg-[#f4d187] px-4 py-3 text-center text-sm font-semibold text-[#07111f] transition hover:-translate-y-0.5 hover:bg-[#ffe1a3]"
+            >
+              Request access
+            </a>
             <a
               href="mailto:contact@izikwen.com?subject=Izikwen%20support"
-              className="rounded-full bg-[#f4d187] px-4 py-3 text-center text-sm font-semibold text-[#07111f] transition hover:-translate-y-0.5 hover:bg-[#ffe1a3]"
+              className="rounded-full border border-white/16 bg-white/[0.08] px-4 py-3 text-center text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/14"
             >
               Contact support
             </a>
