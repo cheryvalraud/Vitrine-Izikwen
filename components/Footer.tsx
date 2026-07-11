@@ -1,57 +1,10 @@
-﻿import Image from "next/image";
+import Image from "next/image";
+import type { Dictionary, Locale } from "@/lib/i18n";
+import { accessMailto, contactEmail, contactMailto } from "@/lib/site";
 
-export default function Footer() {
-  return (
-    <footer className="bg-[#07111f] px-4 pb-8 pt-6 text-white sm:px-6">
-      <div className="mx-auto max-w-[358px] rounded-3xl border border-white/12 bg-white/[0.08] p-6 shadow-[0_28px_80px_rgba(0,0,0,0.18)] sm:max-w-6xl sm:p-8 lg:p-10">
-        <div className="grid gap-10 lg:grid-cols-[1fr_auto] lg:items-end">
-          <div>
-            <div className="flex items-center gap-3">
-              <Image
-                src="/images/izikwen-logo-mark.png"
-                alt="Izikwen"
-                width={42}
-                height={24}
-                className="h-auto w-11"
-              />
-              <div>
-                <p className="text-sm font-semibold tracking-[0.14em] text-white">
-                  IZIKWEN
-                </p>
-              </div>
-            </div>
-
-            <h2 className="mt-8 max-w-2xl text-3xl font-semibold tracking-[-0.02em] text-white sm:text-4xl">
-              Private banking for digital assets.
-            </h2>
-            <p className="mt-4 max-w-2xl text-sm leading-6 text-[#eef3f8]">
-              Izikwen supports Bitcoin, Ethereum, and USDT with review-first
-              transfers and direct human support. Availability may vary by
-              region.
-            </p>
-          </div>
-
-          <div id="support" className="grid gap-3 sm:min-w-[270px]">
-            <a
-              href="mailto:contact@izikwen.com?subject=Izikwen%20access%20request"
-              className="rounded-full bg-[#f4d187] px-4 py-3 text-center text-sm font-semibold text-[#07111f] transition hover:-translate-y-0.5 hover:bg-[#ffe1a3]"
-            >
-              Request access
-            </a>
-            <a
-              href="mailto:contact@izikwen.com?subject=Izikwen%20support"
-              className="rounded-full border border-white/16 bg-white/[0.08] px-4 py-3 text-center text-sm font-semibold text-white transition hover:-translate-y-0.5 hover:bg-white/14"
-            >
-              Contact support
-            </a>
-          </div>
-        </div>
-
-        <div className="mt-10 flex flex-col gap-3 border-t border-white/12 pt-5 text-xs text-[#d9e3ee] sm:flex-row sm:items-center sm:justify-between">
-          <p>Copyright 2026 Izikwen.</p>
-          <p>contact@izikwen.com</p>
-        </div>
-      </div>
-    </footer>
-  );
+export default function Footer({ locale, copy }: { locale: Locale; copy: Dictionary["footer"] }) {
+  return <footer className="bg-[#101312] px-4 py-10 text-white sm:px-6"><div className="mx-auto max-w-7xl">
+    <div className="grid gap-10 border-t border-white/12 pt-10 lg:grid-cols-[1fr_auto] lg:items-end"><div><div className="flex items-center gap-3"><Image src="/images/izikwen-logo-mark.png" alt="" width={42} height={24} className="h-auto w-11" /><span className="font-semibold">Izikwen</span></div><h2 className="mt-8 max-w-2xl text-3xl font-semibold sm:text-4xl">{copy.tagline}</h2><p className="mt-4 max-w-2xl text-sm leading-6 text-white/68">{copy.description}</p></div><div className="grid gap-3 sm:min-w-64"><a href={accessMailto(locale)} className="button-primary focus-ring rounded-full px-4 py-3 text-center text-sm font-semibold">{copy.requestAccess}</a><a href={contactMailto(locale)} className="button-secondary focus-ring rounded-full px-4 py-3 text-center text-sm font-semibold">{copy.contact}</a></div></div>
+    <div className="mt-10 flex flex-col gap-3 text-xs text-white/58 sm:flex-row sm:items-center sm:justify-between"><p>{copy.copyright}</p><a className="focus-ring rounded hover:text-white" href={`mailto:${contactEmail}`} aria-label={`${contactEmail} — ${copy.emailLabel}`}>{contactEmail}</a></div>
+  </div></footer>;
 }

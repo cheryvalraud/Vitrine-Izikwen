@@ -12,7 +12,7 @@ type OrbitNode = {
   zOffset: number;
 };
 
-export default function ThreeScene() {
+export default function ThreeScene({ label }: { label: string }) {
   const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
@@ -74,6 +74,7 @@ export default function ThreeScene() {
     scene.add(whiteGlint);
 
     let frameId = 0;
+    let isIntersecting = false;
     let mouseX = 0;
     let mouseY = 0;
 
@@ -152,7 +153,7 @@ export default function ThreeScene() {
 
       context.font = "700 46px Arial, Helvetica, sans-serif";
       context.fillStyle = "rgba(224, 255, 240, 0.78)";
-      context.fillText("IZIKWEN", center, 680);
+      context.fillText("Izikwen", center, 680);
 
       const qrStartX = 706;
       const qrStartY = 214;
@@ -520,17 +521,32 @@ export default function ThreeScene() {
       whiteGlint.position.x = 2.4 + Math.sin(elapsed * 0.7 * slow) * 0.45;
 
       renderer.render(scene, camera);
-      frameId = requestAnimationFrame(animate);
+      if (isIntersecting && !document.hidden) {
+        frameId = requestAnimationFrame(animate);
+      }
     };
 
-    if (prefersReducedMotion) {
-      renderStill();
-    } else {
-      animate();
-    }
+    const startOrStop = () => {
+      cancelAnimationFrame(frameId);
+      if (isIntersecting && !document.hidden) {
+        clock.getDelta();
+        frameId = requestAnimationFrame(animate);
+      }
+    };
+
+    const observer = new IntersectionObserver(([entry]) => {
+      isIntersecting = entry.isIntersecting;
+      startOrStop();
+    }, { rootMargin: "160px" });
+
+    observer.observe(container);
+    document.addEventListener("visibilitychange", startOrStop);
+    renderStill();
 
     return () => {
       cancelAnimationFrame(frameId);
+      observer.disconnect();
+      document.removeEventListener("visibilitychange", startOrStop);
       container.removeEventListener("pointermove", handlePointerMove);
       window.removeEventListener("resize", handleResize);
 
@@ -574,7 +590,9 @@ export default function ThreeScene() {
   return (
     <div
       ref={containerRef}
-      aria-label="Animated premium IZIKWEN crypto coin payment network"
+      role="img"
+      aria-label={label}
+      data-three-scene
       className="absolute inset-0 h-full w-full"
     />
   );

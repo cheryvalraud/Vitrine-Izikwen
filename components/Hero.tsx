@@ -1,72 +1,29 @@
+import Image from "next/image";
 import ThreeSceneLoader from "@/components/ThreeSceneLoader";
+import type { Dictionary, Locale } from "@/lib/i18n";
+import { accessMailto } from "@/lib/site";
 
-const assetStrip = [
-  ["Bitcoin", "BTC"],
-  ["Ethereum", "ETH"],
-  ["Tether", "USDT"],
-];
-
-export default function Hero() {
+export default function Hero({ locale, copy }: { locale: Locale; copy: Dictionary["hero"] }) {
   return (
-    <section
-      id="home"
-      className="relative isolate flex min-h-[calc(100svh-4rem)] items-center bg-[#07111f] px-4 pb-12 pt-14 text-white sm:px-6 sm:pb-16 sm:pt-20 lg:pt-24"
-    >
-      <div className="ledger-grid absolute inset-0 -z-20 opacity-30" />
-      <div className="absolute inset-0 -z-10 bg-[linear-gradient(120deg,rgba(7,17,31,1),rgba(7,17,31,0.94)_52%,rgba(13,26,43,0.9)),radial-gradient(circle_at_76%_24%,rgba(39,214,195,0.14),transparent_31%),radial-gradient(circle_at_18%_82%,rgba(244,209,135,0.12),transparent_27%)]" />
-      <div className="absolute inset-x-0 bottom-0 -z-10 h-28 bg-gradient-to-b from-transparent to-[#f6f2ea]" />
-
-      <div className="mx-auto grid w-full max-w-[358px] items-center gap-10 sm:max-w-6xl lg:grid-cols-[0.9fr_1.1fr] lg:gap-10">
-        <div className="hero-copy max-w-2xl">
-          <div className="mb-6 inline-flex items-center rounded-full border border-white/12 bg-white/[0.06] px-4 py-2 text-xs font-semibold uppercase tracking-[0.16em] text-[#b8ffdf]">
-            Private digital asset banking
-          </div>
-
-          <h1 className="max-w-3xl text-balance text-4xl font-semibold leading-[1.02] text-white sm:text-6xl sm:leading-[0.98] lg:text-7xl">
-            Wealth, held with discipline.
-          </h1>
-
-          <p className="mt-6 max-w-xl text-pretty text-lg leading-8 text-[#d9e3ee] sm:text-xl">
-            Izikwen safeguards Bitcoin, Ethereum, and USDT with the rigor of
-            private banking. Every transfer is reviewed. Every asset is
-            accounted for.
-          </p>
-
-          <div className="mt-8 flex flex-col gap-3 sm:flex-row">
-            <a
-              href="mailto:contact@izikwen.com?subject=Izikwen%20access%20request"
-              className="inline-flex h-12 items-center justify-center rounded-full bg-[#f4d187] px-6 text-base font-semibold text-[#07111f] shadow-[0_18px_50px_rgba(244,209,135,0.2)] transition hover:-translate-y-0.5 hover:bg-[#ffe1a3]"
-            >
-              Request access
-            </a>
-            <a
-              href="#flow"
-              className="inline-flex h-12 items-center justify-center rounded-full border border-white/14 bg-white/[0.06] px-6 text-base font-semibold text-white backdrop-blur transition hover:-translate-y-0.5 hover:bg-white/12"
-            >
-              See how it works
-            </a>
-          </div>
-
-          <div className="mt-8 grid max-w-xl grid-cols-1 gap-2 sm:grid-cols-3">
-            {assetStrip.map(([label, value]) => (
-              <div
-                key={label}
-                className="min-w-0 rounded-2xl border border-white/10 bg-white/[0.04] p-3"
-              >
-                <p className="text-[11px] font-semibold uppercase tracking-[0.14em] text-[#9fb3c8]">
-                  {label}
-                </p>
-                <p className="mt-2 break-words text-sm font-semibold text-white">
-                  {value}
-                </p>
-              </div>
-            ))}
+    <section id="home" className="relative isolate min-h-[calc(92svh-4rem)] overflow-hidden bg-[#101312] text-white">
+      <div className="absolute inset-0 hidden lg:block"><ThreeSceneLoader label={copy.sceneAlt} /></div>
+      <div className="absolute inset-0 bg-[linear-gradient(90deg,#101312_0%,rgba(16,19,18,.94)_43%,rgba(16,19,18,.3)_100%)]" />
+      <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-b from-transparent to-[#f8f7f2]" />
+      <div className="relative mx-auto grid min-h-[calc(92svh-4rem)] max-w-7xl items-center gap-8 px-4 pb-14 pt-12 sm:px-6 lg:grid-cols-[.92fr_.72fr] lg:px-8">
+        <div className="hero-copy max-w-3xl">
+          <p className="eyebrow text-[#c6f36d]">{copy.kicker}</p>
+          <h1 className="mt-5 text-5xl font-semibold leading-[.98] tracking-[-.04em] sm:text-7xl lg:text-8xl">{copy.title}</h1>
+          <p className="mt-6 max-w-2xl text-lg leading-8 text-white/74 sm:text-xl">{copy.body}</p>
+          <div className="mt-9 flex flex-col gap-3 sm:flex-row">
+            <a href={accessMailto(locale)} className="button-primary focus-ring inline-flex h-12 items-center justify-center rounded-full px-6 font-semibold">{copy.primary}</a>
+            <a href="#app" className="button-secondary focus-ring inline-flex h-12 items-center justify-center rounded-full px-6 font-semibold">{copy.secondary}</a>
           </div>
         </div>
-
-        <div className="hero-visual relative min-h-[340px] overflow-hidden rounded-[28px] border border-white/10 bg-[#030806] shadow-[0_34px_100px_rgba(0,0,0,0.32)] sm:min-h-[500px] lg:min-h-[620px]">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_48%,rgba(31,232,160,0.2),transparent_34%),linear-gradient(145deg,rgba(255,255,255,0.08),transparent_30%,rgba(3,8,6,0.64))]" />
-          <ThreeSceneLoader />
+        <div className="hero-phone relative mx-auto w-full max-w-[250px] sm:max-w-[310px] lg:hidden">
+          <div className="absolute -inset-6 rounded-[44px] bg-[#c6f36d]/16 blur-2xl" />
+          <div className="relative overflow-hidden rounded-[34px] border border-white/16 bg-[#111] p-2 shadow-2xl">
+            <Image src="/app-screens/dashboard.webp" alt={copy.dashboardAlt} width={780} height={1688} preload unoptimized sizes="(max-width: 640px) 250px, 310px" quality={90} className="h-auto w-full rounded-[26px]" />
+          </div>
         </div>
       </div>
     </section>

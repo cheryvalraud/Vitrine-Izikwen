@@ -1,76 +1,40 @@
 "use client";
 
-import dynamic from "next/dynamic";
-import { useSyncExternalStore } from "react";
+import type { ComponentType } from "react";
+import { useEffect, useState, useSyncExternalStore } from "react";
 
-const ThreeScene = dynamic(() => import("@/components/ThreeScene"), {
-  ssr: false,
-  loading: () => <SceneFallback />,
-});
+const DESKTOP_QUERY = "(min-width: 1100px) and (pointer: fine) and (hover: hover) and (prefers-reduced-motion: no-preference)";
 
-const fallbackAssets = [
-  { ticker: "BTC", accent: "#f4d187" },
-  { ticker: "ETH", accent: "#b4a7ff" },
-  { ticker: "USDT", accent: "#27d6c3" },
-];
-
-function SceneFallback() {
-  return (
-    <div
-      aria-label="IZIKWEN private vault for Bitcoin, Ethereum, and USDT"
-      className="absolute inset-0 flex h-full w-full items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_50%_42%,rgba(31,232,160,0.2),transparent_42%),linear-gradient(135deg,#030806,#07111f)]"
-    >
-      <div className="relative flex h-40 w-40 items-center justify-center rounded-full border border-[#f4d187]/40 bg-[radial-gradient(circle_at_38%_32%,#f9fff6,#d7b76a_18%,#1fe8a0_38%,#08241c_72%,#03110f)] shadow-[0_0_70px_rgba(31,232,160,0.28)] sm:h-52 sm:w-52">
-        <span className="text-3xl font-extrabold tracking-tight text-[#fef6db] drop-shadow-[0_0_18px_rgba(15,255,166,0.5)] sm:text-4xl">
-          IZ
-        </span>
-        <span className="absolute inset-0 rounded-full border border-white/20" />
-      </div>
-
-      <div className="absolute inset-x-0 bottom-8 flex justify-center gap-3 px-4">
-        {fallbackAssets.map((asset) => (
-          <span
-            key={asset.ticker}
-            className="rounded-full border border-white/14 bg-white/[0.07] px-3 py-1.5 text-xs font-semibold text-white backdrop-blur"
-            style={{ boxShadow: `0 0 0 1px ${asset.accent}22 inset` }}
-          >
-            {asset.ticker}
-          </span>
-        ))}
-      </div>
-    </div>
-  );
+function capable() {
+  const nav = navigator as Navigator & { deviceMemory?: number };
+  return window.matchMedia(DESKTOP_QUERY).matches
+    && (nav.hardwareConcurrency || 4) >= 4
+    && (nav.deviceMemory === undefined || nav.deviceMemory >= 4);
 }
 
-// Desktop/laptop only: a mouse-driven pointer plus a hover-capable input is a
-// reliable signal that we are not on a phone or touch tablet.
-const DESKTOP_QUERY =
-  "(min-width: 1024px) and (pointer: fine) and (hover: hover) and (prefers-reduced-motion: no-preference)";
-
-function subscribe(onStoreChange: () => void) {
-  const mediaQueryList = window.matchMedia(DESKTOP_QUERY);
-  mediaQueryList.addEventListener("change", onStoreChange);
-  return () => mediaQueryList.removeEventListener("change", onStoreChange);
+function subscribe(change: () => void) {
+  const media = window.matchMedia(DESKTOP_QUERY);
+  media.addEventListener("change", change);
+  return () => media.removeEventListener("change", change);
 }
 
-function getSnapshot() {
-  return window.matchMedia(DESKTOP_QUERY).matches;
+function SceneFallback({ label }: { label: string }) {
+  return <div role="img" aria-label={label} data-scene-fallback className="absolute inset-0 flex items-center justify-center overflow-hidden bg-[radial-gradient(circle_at_55%_42%,rgba(198,243,109,.18),transparent_34%),linear-gradient(135deg,#101312,#12241c)]"><div className="relative flex h-48 w-48 items-center justify-center rounded-full border border-[#d8b35f]/45 bg-[radial-gradient(circle_at_38%_32%,#f9fff6,#d7b76a_18%,#1fe8a0_38%,#08241c_72%,#03110f)] shadow-[0_0_90px_rgba(31,232,160,.22)]"><span className="text-4xl font-extrabold text-[#fef6db]">Iz</span><span className="absolute -inset-14 rounded-full border border-[#c6f36d]/15" /></div></div>;
 }
 
-function getServerSnapshot() {
-  return false;
-}
+export default function ThreeSceneLoader({ label }: { label: string }) {
+  const canRender = useSyncExternalStore(subscribe, capable, () => false);
+  const [Scene, setScene] = useState<ComponentType<{ label: string }> | null>(null);
 
-export default function ThreeSceneLoader() {
-  const canRender3D = useSyncExternalStore(
-    subscribe,
-    getSnapshot,
-    getServerSnapshot,
-  );
+  useEffect(() => {
+    let active = true;
+    if (canRender && !Scene) {
+      import("@/components/ThreeScene").then((module) => {
+        if (active) setScene(() => module.default);
+      });
+    }
+    return () => { active = false; };
+  }, [canRender, Scene]);
 
-  if (!canRender3D) {
-    return <SceneFallback />;
-  }
-
-  return <ThreeScene />;
+  return canRender && Scene ? <Scene label={label} /> : <SceneFallback label={label} />;
 }

@@ -1,36 +1,22 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Izikwen Vitrine
 
-## Getting Started
+Multilingual product showcase for Izikwen, built with Next.js. English, French, and Spanish are statically rendered at `/en`, `/fr`, and `/es`; `/` redirects to English.
 
-First, run the development server:
+## Local development
 
 ```bash
+npm ci
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm run lint
+npm run typecheck
+npm run build
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Sanitized product screenshots live in `public/app-screens/`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Production configuration
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+- `SITE_URL`: canonical public origin, such as `https://izikwen.com`. The application uses that value for canonical links, Open Graph URLs, `robots.txt`, and `sitemap.xml`; it defaults to `https://izikwen.com`.
+- `GOOGLE_SITE_VERIFICATION`: optional Google Search Console verification token. Keep the value in the hosting provider's environment settings rather than committing it.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+Configure the production domain in the hosting provider, then submit `${SITE_URL}/sitemap.xml` in Search Console after ownership verification. Search indexing is controlled by search engines and is not immediate.

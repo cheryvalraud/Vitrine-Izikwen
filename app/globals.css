@@ -1,220 +1,37 @@
-﻿@import "tailwindcss";
+@import "tailwindcss";
 
-:root {
-  --background: #f6f2ea;
-  --foreground: #07111f;
-}
+:root { --background: #f8f7f2; --foreground: #101312; }
+@theme inline { --color-background: var(--background); --color-foreground: var(--foreground); --font-sans: "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+* { box-sizing: border-box; }
+html { max-width: 100%; overflow-x: hidden; scroll-behavior: smooth; }
+body { margin: 0; max-width: 100%; overflow-x: hidden; background: var(--background); color: var(--foreground); font-family: "Segoe UI", "Helvetica Neue", Arial, sans-serif; }
+section[id] { scroll-margin-top: 4rem; }
+::selection { background: rgba(198, 243, 109, .55); color: #101312; }
 
-html {
-  max-width: 100%;
-  overflow-x: hidden;
-  scroll-behavior: smooth;
-}
+.skip-link { position: fixed; left: 1rem; top: .75rem; z-index: 100; transform: translateY(-180%); border-radius: 999px; background: #c6f36d; color: #101312; padding: .65rem 1rem; font-weight: 700; }
+.skip-link:focus { transform: translateY(0); }
+.focus-ring:focus-visible { outline: 3px solid #c6f36d; outline-offset: 3px; }
+.button-primary { background: #c6f36d; color: #101312; transition: transform .2s ease, background .2s ease; }
+.button-primary:hover { background: #dafb8b; transform: translateY(-2px); }
+.button-secondary { border: 1px solid rgba(255,255,255,.17); background: rgba(255,255,255,.07); color: white; transition: transform .2s ease, background .2s ease; }
+.button-secondary:hover { background: rgba(255,255,255,.12); transform: translateY(-2px); }
+.eyebrow { font-size: .875rem; font-weight: 700; letter-spacing: .16em; text-transform: uppercase; }
+.section-pad { padding: 5rem 1rem; }
+.section-title { margin-top: 1rem; font-size: clamp(2.25rem, 5vw, 3.75rem); font-weight: 650; line-height: 1.08; letter-spacing: -.035em; }
+.body-copy { color: #59615c; font-size: 1rem; line-height: 1.75; }
+.card { border: 1px solid rgba(16,19,18,.1); border-radius: 1rem; background: white; transition: transform .3s ease, box-shadow .3s ease; }
+.card:hover { transform: translateY(-4px); box-shadow: 0 20px 50px rgba(16,19,18,.08); }
+.language-menu[open] summary { background: rgba(255,255,255,.08); }
+.language-menu summary::-webkit-details-marker, .faq-item summary::-webkit-details-marker { display: none; }
+.mobile-reveal { opacity: 0; transform: translateY(24px); transition: opacity .6s ease, transform .6s cubic-bezier(.2,.8,.2,1); }
+.mobile-reveal.is-visible { opacity: 1; transform: translateY(0); }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: var(--font-geist-sans), Arial, Helvetica, sans-serif;
-  max-width: 100%;
-  overflow-x: hidden;
-}
-
-::selection {
-  background: rgba(39, 214, 195, 0.28);
-  color: #07111f;
-}
-
-.hero-copy {
-  animation: hero-rise 760ms cubic-bezier(0.2, 0.9, 0.2, 1) both;
-}
-
-.hero-visual {
-  animation: hero-scale 900ms cubic-bezier(0.2, 0.9, 0.2, 1) 120ms both;
-}
-
-.reveal-on-scroll {
-  opacity: 1;
-  transform: none;
-  filter: none;
-  animation: none;
-}
-
-.signal-dot {
-  animation: signal-pulse 2.4s ease-in-out infinite;
-}
-
-.rail-scan {
-  animation: rail-scan 4.8s ease-in-out infinite;
-}
-
-.metric-tile {
-  animation: metric-float 5.8s ease-in-out infinite;
-}
-
-.metric-tile:nth-child(2) {
-  animation-delay: 520ms;
-}
-
-.metric-tile:nth-child(3) {
-  animation-delay: 960ms;
-}
-
-.card-lift {
-  transition:
-    transform 420ms cubic-bezier(0.2, 0.9, 0.2, 1),
-    border-color 420ms ease,
-    box-shadow 420ms ease,
-    background 420ms ease;
-}
-
-.card-lift:hover {
-  transform: translateY(-6px);
-  border-color: rgba(39, 214, 195, 0.36);
-  box-shadow: 0 22px 60px rgba(7, 17, 31, 0.1);
-}
-
-.motion-sheen {
-  pointer-events: none;
-  position: absolute;
-  inset: -2px;
-  background: linear-gradient(
-    115deg,
-    transparent 0%,
-    transparent 42%,
-    rgba(39, 214, 195, 0.06) 49%,
-    rgba(255, 255, 255, 0.32) 50%,
-    transparent 58%,
-    transparent 100%
-  );
-  transform: translateX(-120%);
-  animation: sheen-pass 7.2s ease-in-out infinite;
-}
-
-.ledger-grid {
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.06) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.06) 1px, transparent 1px);
-  background-size: 52px 52px;
-  mask-image: linear-gradient(to bottom, black, transparent 88%);
-}
-
-@keyframes hero-rise {
-  from {
-    opacity: 0;
-    transform: translateY(22px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@keyframes hero-scale {
-  from {
-    opacity: 0;
-    transform: translateY(16px) scale(0.98);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0) scale(1);
-  }
-}
-
-@keyframes signal-pulse {
-  0%,
-  100% {
-    box-shadow: 0 0 0 0 rgba(39, 214, 195, 0.3);
-  }
-
-  50% {
-    box-shadow: 0 0 0 7px rgba(39, 214, 195, 0);
-  }
-}
-
-@keyframes metric-float {
-  0%,
-  100% {
-    transform: translateY(0);
-  }
-
-  50% {
-    transform: translateY(-6px);
-  }
-}
-
-@keyframes rail-scan {
-  0%,
-  100% {
-    transform: translateX(-20%);
-    opacity: 0.28;
-  }
-
-  50% {
-    transform: translateX(20%);
-    opacity: 0.72;
-  }
-}
-
-@keyframes sheen-pass {
-  0%,
-  45% {
-    transform: translateX(-120%);
-    opacity: 0;
-  }
-
-  54% {
-    opacity: 1;
-  }
-
-  68%,
-  100% {
-    transform: translateX(120%);
-    opacity: 0;
-  }
-}
-
-@media (max-width: 640px) {
-  .card-lift:hover {
-    transform: none;
-  }
-
-  .motion-sheen {
-    animation-duration: 8s;
-  }
-
-  .metric-tile {
-    animation: none;
-  }
-}
+@media (min-width: 640px) { .section-pad { padding: 6rem 1.5rem; } }
+@media (min-width: 1024px) { .section-pad { padding: 7rem 2rem; } }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
-    animation-duration: 1ms !important;
-    animation-iteration-count: 1 !important;
-    scroll-behavior: auto !important;
-    transition-duration: 1ms !important;
-  }
-
-  .reveal-on-scroll,
-  .hero-copy,
-  .hero-visual {
-    opacity: 1;
-    transform: none;
-    filter: none;
-  }
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 1ms !important; animation-iteration-count: 1 !important; scroll-behavior: auto !important; transition-duration: 1ms !important; }
+  .section-reveal, .hero-copy, .hero-phone { opacity: 1 !important; transform: none !important; }
 }
